@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  background-color: rgb(17,24,39);
+}
+/*----------------------------------------------------------------
+#8685EF Violeta
+#FAF7FF Blanco
+#3A3847 Gris
+*/
