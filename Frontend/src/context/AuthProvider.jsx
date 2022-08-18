@@ -11,6 +11,7 @@ export const AuthProvider = ({children}) => {
     const getAuth = async () => {
         try {
             const {data} = await axiosClient('/auth', {withCredentials: true})
+            console.log(data)
             setAuth (data)
         } catch (error) {
             console.log(error)
@@ -22,11 +23,23 @@ export const AuthProvider = ({children}) => {
 
     }, [])
 
+    const register = async (useData) => {
+        try {
+            const {data} = await axiosClient.post('/auth/register', useData, {withCredentials: true})
+
+            console.log(data)
+
+        } catch (error) {
+            if (error.response.status === 500){
+                console.log('Invalid Credentials');
+            }
+            
+        }
+    }
 
     const login = async (user) => {
-        const credentials = {user}
         try {
-            const {data} = await axiosClient.post(`/auth/login`, credentials, {withCredentials: true});
+            const {data} = await axiosClient.post(`/auth/login`, user, {withCredentials: true});
             setAuth(data)
             if(data.admin){
                 navigate('/home', { replace: true });
@@ -38,7 +51,6 @@ export const AuthProvider = ({children}) => {
 
     const logout = async () => {
         try {
-            const {data} = await axiosClient(`/auth/logout`)
             setAuth({admin: false});
             navigate('/', {replace: true});
         } catch (error) {
@@ -51,7 +63,8 @@ export const AuthProvider = ({children}) => {
         value={{
             login,
             auth,
-            logout,            
+            logout, 
+            register           
         }}
     >
         {children}

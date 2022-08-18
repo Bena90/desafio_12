@@ -1,3 +1,4 @@
+
 import {Router} from 'express'
 
 const router = Router();
@@ -17,7 +18,7 @@ router.post('/login', async (req, res)=> {
 })
 
 router.get('/', async (req, res)=> {
-    res.json({user: req.session.user, admin: req.session.admin})
+    res.json({username: req.session.user, admin: req.session.admin})
 })
 
 router.get('/logout', async (req, res)=> {
